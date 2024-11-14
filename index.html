@@ -153,14 +153,33 @@
 
     <script src="script.js"></script>
     <script>
+        /**
+         * Função para testar as redes sociais e verificar em quais o usuário está logado.
+         * Faz uso de uma função de vazamento de contas de redes sociais para verificar
+         * se o usuário está logado ou não e atualiza a interface conforme o resultado.
+         */
         function testSocialMedia() {
+            /**
+             * Chama a função leakSocialMediaAccounts que provavelmente faz o teste
+             * das plataformas e executa o callback para cada rede detectada.
+             * 
+             * @param {function} callback - Função de retorno que recebe o nome da rede
+             *                              social e um booleano indicando se está logado.
+             */
             leakSocialMediaAccounts(function(network, isLoggedIn) {
+                console.log(network, isLoggedIn);
+    
+                // Seleciona o item da plataforma correspondente com base no nome
                 var item = document.querySelector(`.platform-item[data-platform="${network.name}"]`);
+    
+                // Se o item existir na DOM
                 if (item) {
                     if (isLoggedIn) {
+                        // Se estiver logado, move o item para a seção 'logado'
                         document.getElementById('logged-in').appendChild(item);
                     } else {
-                document.getElementById('not-logged-in').appendChild(item);
+                        // Se não estiver logado, mantém o item na seção 'não logado'
+                        document.getElementById('not-logged-in').appendChild(item);
                     }
                 }
             });
